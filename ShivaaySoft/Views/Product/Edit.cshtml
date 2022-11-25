@@ -1,0 +1,39 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-6">
+    <form asp-action="edit" asp-controller="product" method="post" enctype="multipart/form-data">
+        <input type="hidden" value="@Model.Id"/>
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" asp-for="Title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))" class="form-control" required
+                    oninvalid="this.setCustomValidity('Create Category First')" oninput="this.setCustomValidity('')">
+                <option disabled selected>Select Campaign </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Excerpt</label>
+            <input type="text" asp-for="Excerpt" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" asp-for="Description" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Upload File</label>
+            <input type="file" name="File" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</div>
+
+

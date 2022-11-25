@@ -1,0 +1,21 @@
+﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="col-lg-6">
+        <form asp-action="edit" asp-controller="category" method="post">
+            <input type="hidden" value="@Model.Id" />
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" asp-for="Title" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+

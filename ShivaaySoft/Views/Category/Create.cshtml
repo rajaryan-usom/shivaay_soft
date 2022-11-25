@@ -1,0 +1,20 @@
+﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-6">
+        <form asp-action="create" asp-controller="category" method="post">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" asp-for="Title" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+    
+</div>
+
+
