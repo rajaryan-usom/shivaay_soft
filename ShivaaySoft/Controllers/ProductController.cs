@@ -31,6 +31,12 @@ namespace ShivaaySoft.Controllers
 
             return View(_ProductRepository.GetAll());
         }
+
+        public IActionResult GetProduct()
+        {
+            var result = _ProductRepository.GetAll();
+            return new JsonResult(result);
+        }
         public IActionResult Create()
         {
             ViewBag.Categories = _CategoryRepository.GetAll();
@@ -89,42 +95,42 @@ namespace ShivaaySoft.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult GetProductList()
-        {
-            try
-            {
-                var draw = Request.Form["draw"].FirstOrDefault(); // get total page size
-                var start = Request.Form["start"].FirstOrDefault(); // get starte length size from request.
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault(); // check if there is any search characters passed
-                int pageSize = length != null ? Convert.ToInt32(length) : 1;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
-                var personData = _ProductRepository.GetAll(); // get data from database
-                                                              //check for sorting column number and direction
+        //[HttpPost]
+        //public IActionResult GetProductList()
+        //{
+        //    try
+        //    {
+        //        var draw = Request.Form["draw"].FirstOrDefault(); // get total page size
+        //        var start = Request.Form["start"].FirstOrDefault(); // get starte length size from request.
+        //        var length = Request.Form["length"].FirstOrDefault();
+        //        var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+        //        var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+        //        var searchValue = Request.Form["search[value]"].FirstOrDefault(); // check if there is any search characters passed
+        //        int pageSize = length != null ? Convert.ToInt32(length) : 1;
+        //        int skip = start != null ? Convert.ToInt32(start) : 0;
+        //        int recordsTotal = 0;
+        //        var personData = _ProductRepository.GetAll(); // get data from database
+        //                                                      //check for sorting column number and direction
 
 
-                // if there is any search value, filter results
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    personData = personData.Where(m => m.Title.ToLower().Contains(searchValue.ToLower()));
-                }
-                // get total records acount
-                recordsTotal = personData.Count();
-                //get page data
-                var data = personData.Skip(skip).Take(pageSize).ToList();
-                var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
-                return Ok(jsonData);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        //        // if there is any search value, filter results
+        //        if (!string.IsNullOrEmpty(searchValue))
+        //        {
+        //            personData = personData.Where(m => m.Title.ToLower().Contains(searchValue.ToLower()));
+        //        }
+        //        // get total records acount
+        //        recordsTotal = personData.Count();
+        //        //get page data
+        //        var data = personData.Skip(skip).Take(pageSize).ToList();
+        //        var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+        //        return Ok(jsonData);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
 
-        }
+        //}
 
 
 
